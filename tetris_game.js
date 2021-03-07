@@ -1,51 +1,48 @@
-
-
-
-const canvas = document.querySelector('canvas');
+let canvas = document.querySelector('#gameCanvas');
 canvas.width = 640;
 canvas.height = 640;
 
-const ctx = canvas.getContext('2d');
+let ctx = canvas.getContext('2d');
 
-const right = { x: 1, y: 0 };
-const down = { x: 0, y: 1 };
-const left = { x: -1, y: 0 };
+let right = { x: 1, y: 0 };
+let down = { x: 0, y: 1 };
+let left = { x: -1, y: 0 };
 
-const EMPTY = -1;
-const BORDER = -2;
+let EMPTY = -1;
+let BORDER = -2;
 
 let fallingShape;
 let nextShape;
-const dim = 640;
-const nRows = 18;
-const nCols = 12;
-const blockSize = 30;
-const topMargin = 50;
-const leftMargin = 20;
-const scoreX = 400;
-const scoreY = 300;
-const titleX = 130;
-const titleY = 160;
-const clickX = 120;
-const clickY = 300;
-const previewCenterX = 467;
-const previewCenterY = 97;
-const mainFont = 'bold 48px monospace';
-const smallFont = 'bold 18px monospace';
-const colors = ['green', 'red', 'blue', 'purple', 'orange', 'blueviolet', 'magenta'];
-const gridRect = { x: 46, y: 47, w: 308, h: 517 };
-const previewRect = { x: 387, y: 47, w: 200, h: 200 };
-const titleRect = { x: 100, y: 95, w: 252, h: 100 };
-const clickRect = { x: 50, y: 275, w: 285, h: 200 };
-const outerRect = { x: 5, y: 5, w: 630, h: 630 };
-const squareBorder = 'white';
-const titlebgColor = '#C6F0BB';
-const textColor = 'black';
-const bgColor = '#DDEEFF';
-const gridColor = '#BECFEA';
-const gridBorderColor = '#7788AA';
-const largeStroke = 5;
-const smallStroke = 2;
+let dim = 640;
+let nRows = 18;
+let nCols = 12;
+let blockSize = 30;
+let topMargin = 50;
+let leftMargin = 20;
+let scoreX = 400;
+let scoreY = 330;
+let titleX = 130;
+let titleY = 160;
+let clickX = 120;
+let clickY = 300;
+let previewCenterX = 467;
+let previewCenterY = 97;
+let mainFont = 'bold 48px monospace';
+let smallFont = 'bold 18px monospace';
+let colors = ['green', 'red', 'blue', 'purple', 'orange', 'blueviolet', 'magenta'];
+let gridRect = { x: 46, y: 47, w: 308, h: 517 };
+let previewRect = { x: 387, y: 47, w: 200, h: 200 };
+let titleRect = { x: 100, y: 95, w: 252, h: 100 };
+let clickRect = { x: 49, y: 285, w: 285, h: 180 };
+let outerRect = { x: 5, y: 5, w: 630, h: 630 };
+let squareBorder = 'white';
+let titlebgColor = '#F94144';
+let textColor = 'black';
+let bgColor = '#F9C74F';
+let gridColor = '#90BE6D';
+let gridBorderColor = '#43AA8B';
+let largeStroke = 5;
+let smallStroke = 2;
 
 // position of falling shape
 let fallingShapeRow;
@@ -56,7 +53,7 @@ let fastDown = false;
 
 let grid = [];
 let scoreboard = new Scoreboard();
-
+let currentUser;
 
 addEventListener('keydown', function (event) {
     if (!keyDown) {
@@ -100,9 +97,11 @@ addEventListener('keydown', function (event) {
     }
 });
 
-//addEventListener('click', function () {
-    //startNewGame();
-//});
+/*
+addEventListener('click', function () {
+    startNewGame();
+});
+*/
 
 addEventListener('keyup', function () {
     keyDown = false;
@@ -110,9 +109,9 @@ addEventListener('keyup', function () {
 });
 
 function canRotate(s) {
-    if (s === Shapes.Square){
+    if (s === Shapes.Square)
         return false;
-    }
+
     let pos = new Array(4);
     for (let i = 0; i < pos.length; i++) {
         pos[i] = s.pos[i].slice();
@@ -343,9 +342,17 @@ function draw() {
     drawUI();
 
     if (scoreboard.isGameOver()) {
-        drawStartScreen();
-        
-
+        if(currentUser == undefined){
+            drawStartScreen();
+        }
+        else{
+            drawStartScreen();
+            apiService.submitGame(currentUser.id, scoreboard.getScore(), scoreboard.getLines(), scoreboard.getLevel())
+                .then(data =>{
+                    const newGame = new Game(data)
+                })
+            scoreboard.level = 0;
+        }
         
     } else {
         drawFallingShape();
@@ -362,10 +369,9 @@ function getNameInput(){
     } 
     inputs.forEach(input => {
         input.addEventListener('keypress', function(e){
-            
             if(e.key === 'Enter'){
-                apiService.submitUser(nameInput.value, passwordInput.value)
-                setTimeout(() => afterReturn(), 500)
+                currentUser = User.findUser(nameInput.value, passwordInput.value)
+                setTimeout(() => afterReturn(), 100)
             }
         })
     })
@@ -383,19 +389,19 @@ function afterReturn(){
 
 function drawStartScreen() {
     ctx.font = mainFont;
+
     fillRect(titleRect, titlebgColor);
     fillRect(clickRect, titlebgColor);
     getNameInput();
     
-
     ctx.fillStyle = textColor;
     ctx.fillText('Tetris', titleX, titleY);
 
     ctx.font = smallFont;
     ctx.fillText('Enter name', 150, 300);
     ctx.fillText('and password', 140, 327);
-    ctx.fillText('name:', 95, 368)
-    ctx.fillText('password:', 55, 400)
+    ctx.fillText('name:', 95, 368);
+    ctx.fillText('password:', 55, 400);
     ctx.fillText('then press "Enter"', 110, 460);
 }
 
@@ -403,7 +409,6 @@ function fillRect(r, color) {
     ctx.fillStyle = color;
     ctx.fillRect(r.x, r.y, r.w, r.h);
 }
-
 
 function drawRect(r, color) {
     ctx.strokeStyle = color;
@@ -475,7 +480,7 @@ function drawFallingShape() {
 }
 
 function animate(lastFrameTime) {
-let requestId = requestAnimationFrame(function () {
+    let requestId = requestAnimationFrame(function () {
         animate(lastFrameTime);
     });
 
@@ -530,3 +535,6 @@ function init() {
 }
 
 init();
+
+
+

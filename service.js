@@ -4,13 +4,14 @@ class ApiService {
         this.baseGameUrl = 'http://localhost:3000/api/v1/games'
     }
 
-    fetchUser(){
+    fetchUsers(){
         return fetch(this.baseUserUrl, {
             headers: {
                 'content-type': 'application/json',
             }
         })
         .then(res => res.json())
+        
     }
 
     submitUser(name, password){
@@ -42,6 +43,37 @@ class ApiService {
             }
         })
         .then(resp => resp.json())
-        .then(data => console.log(data ))
+        .then(data => console.log(data))
+    }
+
+    fetchGames(){
+        return fetch(this.baseGameUrl, {
+            headers: {
+                'content-type': 'application/json',
+            }
+        })
+        .then(resp => resp.json())
+    }
+
+    submitGame(user_id, score, lines, level){
+        return fetch(this.baseGameUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                user_id: user_id,
+                score: score,
+                lines: lines,
+                level: level,
+                
+            })
+        })
+        .then(function(resp){
+            return resp.json()
+        })
+        .catch(function(error){
+            alert(error)
+        })
     }
 }
