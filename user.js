@@ -40,6 +40,14 @@ class User {
                     })
     }
 
+    static findUserByID(id){
+        for(let i = 0; i < this.allUsers.length; i++){
+            if(id == this.allUsers[i].id){
+                return this.allUsers[i];
+            }
+        }
+    }
+
 
 }
 

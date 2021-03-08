@@ -34,7 +34,7 @@ class Game {
         let highScoreArray = [].concat(Game.allGames)
         highScoreArray = highScoreArray.sort((a, b) => b.score - a.score);
         highScoreArray.length = 10;
-        console.log(highScoreArray)
+        return highScoreArray;
     }
 
     static highLevel(){
