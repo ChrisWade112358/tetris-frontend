@@ -65,25 +65,21 @@ addEventListener('keydown', function (event) {
         switch (event.key) {
 
             case 'w':
-            case 'ArrowUp':
                 if (canRotate(fallingShape))
                     rotate(fallingShape);
                 break;
 
             case 'a':
-            case 'ArrowLeft':
                 if (canMove(fallingShape, left))
                     move(left);
                 break;
 
             case 'd':
-            case 'ArrowRight':
                 if (canMove(fallingShape, right))
                     move(right);
                 break;
 
             case 's':
-            case 'ArrowDown':
                 if (!fastDown) {
                     fastDown = true;
                     while (canMove(fallingShape, down)) {
@@ -97,11 +93,6 @@ addEventListener('keydown', function (event) {
     }
 });
 
-/*
-addEventListener('click', function () {
-    startNewGame();
-});
-*/
 
 addEventListener('keyup', function () {
     keyDown = false;
@@ -351,7 +342,6 @@ function draw() {
                 .then(data =>{
                     const newGame = new Game(data)
                 })
-            scoreboard.level = 0;
         }
         
     } else {

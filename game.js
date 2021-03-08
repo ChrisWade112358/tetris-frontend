@@ -16,7 +16,7 @@ class Game {
             .then(data =>
                 data.forEach(game => {
                     const newGame = new Game(game)
-                })
+                }),   
             )
     }
 
@@ -38,10 +38,18 @@ class Game {
     }
 
     static highLevel(){
-
+        let highLevelArray = [].concat(Game.allGames)
+        highLevelArray = highLevelArray.sort((a, b) => b.score - a.score);
+        highLevelArray.length = 10;
+        return highLevelArray;
     }
 
-    static
+    static highLines(){
+        let highLinesArray = [].concat(Game.allGames)
+        highLinesArray = highLinesArray.sort((a, b) => b.score - a.score);
+        highLinesArray.length = 10;
+        return highLinesArray;
+    }
 
 
 
