@@ -35,7 +35,22 @@ class ApiService {
         })
     }
 
-    deleteUserFetch(id){
+    editUser(userObj){
+        return fetch(`${this.baseUserUrl}/${userObj.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({user: UserObject})
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            console.log(data)
+            this.fetchUsers()
+        })
+    }
+
+    deleteUser(id){
         return fetch(`${this.baseUserUrl}/${id}`, {
             method: 'DELETE',
             headers: {
@@ -43,7 +58,10 @@ class ApiService {
             }
         })
         .then(resp => resp.json())
-        .then(data => console.log(data))
+        .then(data => {
+            console.log(data);
+            this.fetchUsers();
+        })
     }
 
     fetchGames(){
