@@ -36,6 +36,7 @@ class User {
                     .then(data =>{
                         console.log(data)
                         const newUser = new User(data);
+                        currentUser = newUser
                         return newUser;
                     })
     }
@@ -48,6 +49,8 @@ class User {
         }
 
     }
+
+
 
     
 
