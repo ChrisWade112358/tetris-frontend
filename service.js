@@ -65,7 +65,10 @@ class ApiService {
         .then(resp => resp.json())
         .then(data => {
             console.log(data);
+            let deadMan = User.allUsers.indexOf(currentUser)
+            delete User.allUsers[deadman]
             currentUser = undefined;
+            
         })
     }
 
