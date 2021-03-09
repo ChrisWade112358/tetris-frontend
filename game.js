@@ -20,34 +20,34 @@ class Game {
             )
     }
 
-    static userGames(user_id){
+    static userGames(id){
         let userGamesArray = [];
-        for(let i = 0; i < Game.allGames.length; i++){
-            if(this.allGames[i].user_id == user_id){
-                userGamesArray.push(this.allUsers[i]);
+        for(let e = 0; e < this.allGames.length; e++){
+            if(this.allGames[e].user_id == id){
+                userGamesArray.push(this.allGames[e]);
             }
         }
         return userGamesArray
     }
 
     static highScore(){
-        let highScoreArray = [].concat(Game.allGames)
+        let highScoreArray = [].concat(this.allGames)
         highScoreArray = highScoreArray.sort((a, b) => b.score - a.score);
-        highScoreArray.length = 10;
+        highScoreArray.length = 5;
         return highScoreArray;
     }
 
     static highLevel(){
         let highLevelArray = [].concat(Game.allGames)
         highLevelArray = highLevelArray.sort((a, b) => b.score - a.score);
-        highLevelArray.length = 10;
+        highLevelArray.length = 5;
         return highLevelArray;
     }
 
     static highLines(){
         let highLinesArray = [].concat(Game.allGames)
         highLinesArray = highLinesArray.sort((a, b) => b.score - a.score);
-        highLinesArray.length = 10;
+        highLinesArray.length = 5;
         return highLinesArray;
     }
 

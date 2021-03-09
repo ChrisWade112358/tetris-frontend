@@ -46,6 +46,22 @@ class User {
                 return this.allUsers[i];
             }
         }
+
+    }
+
+    static editInputs(){
+        const userNameInput = document.createElement('input')
+        userNameInput.style.type = "text";
+        userNameInput.style.id = "nameEdit";
+        userNameInput.style.class = "userEdit";
+        userNameInput.style.placeholder = "name";
+        userNameInput.style.position = "absolute";
+        userNameInput.style.left = 1380;
+        userNameInput.style.top = 100;
+
+        document.body.appendChild(userNameInput)
+
+
     }
 
 
