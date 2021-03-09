@@ -528,6 +528,10 @@ function drawUI() {
     ctx.fillText('level      ' + scoreboard.getLevel(), scoreX, scoreY + 30);
     ctx.fillText('lines      ' + scoreboard.getLines(), scoreX, scoreY + 60);
     ctx.fillText('score      ' + scoreboard.getScore(), scoreX, scoreY + 90);
+    ctx.fillText('Use "A" to move LEFT', scoreX - 20, scoreY + 140);
+    ctx.fillText('Use "D" to move Right', scoreX - 20, scoreY + 170);
+    ctx.fillText('Use "W" to rotate piece', scoreX - 20, scoreY + 200);
+    ctx.fillText('Use "S" to drop piece', scoreX - 20, scoreY + 230);
 
     // preview
     let minX = 5, minY = 5, maxX = 0, maxY = 0;
