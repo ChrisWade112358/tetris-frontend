@@ -36,6 +36,7 @@ class ApiService {
     }
 
     editUser(userObj){
+        
         return fetch(`${this.baseUserUrl}/${userObj.id}`, {
             method: 'PATCH',
             headers: {
@@ -45,7 +46,12 @@ class ApiService {
         })
         .then(resp => resp.json())
         .then(data => {
-            this.fetchUsers()
+            currentUser.id = data.id;
+            currentUser.name = data.name;
+            currentUser.password = data.password;
+            
+
+            
         })
     }
 
@@ -59,7 +65,7 @@ class ApiService {
         .then(resp => resp.json())
         .then(data => {
             console.log(data);
-            this.fetchUsers();
+            currentUser = undefined;
         })
     }
 

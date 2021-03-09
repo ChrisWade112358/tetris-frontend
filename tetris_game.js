@@ -386,12 +386,10 @@ function afterReturn(){
     let passwordInput = document.getElementById('passwordinput');
     nameInput.hidden = true;
     passwordInput.hidden = true;
-    setTimeout(() => bgCanvas.getUserTop(currentUser.id, "score", 370), 100)
-    setTimeout(() => bgCanvas.getUserTop(currentUser.id, "level", 540), 100)
-    setTimeout(() => bgCanvas.getUserTop(currentUser.id, "lines", 710), 100)
+    bgCanvas.displayUserTops(currentUser.id)
     startNewGame();
     editUser();
-    deleterUser();
+    deleteUser();
 }
 
 
@@ -433,8 +431,8 @@ function editUser(){
         else if(passwordEdit1.value == "" && nameEdit.value != ""){
             const UserObj = {
                 id: currentUser.id,
-                name: currentUser.name,
-                password: passwordEdit1.value,
+                name: nameEdit.value,
+                password: currentUser.password,
             }
             apiService.editUser(UserObj);
         }
@@ -444,18 +442,19 @@ function editUser(){
         else{
             alert("Nothing was entered into edit fields. Please enter a change into the edit fields and click Update again.")
         }
+        bgCanvas.displayUserTops(currentUser.id)
     })
     
     
 }
 
-function deleterUser(id){
+function deleteUser(){
     let deleteBtn = document.getElementById("deleteBtn");
-    deleteBtn.hidden - false;
+    deleteBtn.hidden = false;
     deleteBtn.addEventListener('click', function(e){
         e.preventDefault()
-        deleterUser(id)
-        user = findUser(currentUser.id).delete
+        apiService.deleteUser(currentUser.id)
+        User.findUserByID(currentUser.id).delete
         e.target.reset
     })
 

@@ -8,9 +8,9 @@ class bgCanvas {
     static displayBGCanvas(){
         this.drawBGCanvas(window.innerWidth, window.innerHeight)
         this.addRectangles()
-        setTimeout(() => this.listTops(Game.highScore(), "score", 90), 100)
-        setTimeout(() => this.listTops(Game.highLevel(), "level", 365), 100)
-        setTimeout(() => this.listTops(Game.highLines(), "lines", 625), 100)
+        this.displayTops()
+
+        
         
 
         
@@ -40,7 +40,15 @@ class bgCanvas {
     }
         
     static displayTops(){
-        
+        setTimeout(() => this.listTops(Game.highScore(), "score", 90), 100)
+        setTimeout(() => this.listTops(Game.highLevel(), "level", 365), 100)
+        setTimeout(() => this.listTops(Game.highLines(), "lines", 625), 100)
+    }
+
+    static displayUserTops(userID){
+        setTimeout(() => bgCanvas.getUserTop(userID, "score", 370), 100)
+        setTimeout(() => bgCanvas.getUserTop(userID, "level", 540), 100)
+        setTimeout(() => bgCanvas.getUserTop(userID, "lines", 710), 100)
     }
     
     static listTops(array, top, yValue){
