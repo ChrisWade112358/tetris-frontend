@@ -348,7 +348,12 @@ function draw() {
             apiService.submitGame(currentUser.id, scoreboard.getScore(), scoreboard.getLines(), scoreboard.getLevel())
                 .then(data =>{
                     const newGame = new Game(data)
-                })
+                }
+            )
+            setTimeout(() => bgCanvas.listTops(Game.highScore(), "score", 90), 100)
+            setTimeout(() => bgCanvas.listTops(Game.highLevel(), "level", 365), 100)
+            setTimeout(() => bgCanvas.listTops(Game.highLines(), "lines", 625), 100)
+            
         }
         
     } else {
@@ -381,7 +386,9 @@ function afterReturn(){
     let passwordInput = document.getElementById('passwordinput');
     nameInput.hidden = true;
     passwordInput.hidden = true;
-    //User.editInputs();
+    setTimeout(() => bgCanvas.getUserTop(currentUser.id, "score", 370), 100)
+    setTimeout(() => bgCanvas.getUserTop(currentUser.id, "level", 540), 100)
+    setTimeout(() => bgCanvas.getUserTop(currentUser.id, "lines", 710), 100)
     startNewGame();
     editUser();
     deleterUser();

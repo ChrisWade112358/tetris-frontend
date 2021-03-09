@@ -48,7 +48,7 @@ body {
 #nameEdit {
     position: absolute;
     left: 1390px;
-    top: 220px;
+    top: 240px;
     z-index: 2;
 
 }
@@ -56,21 +56,21 @@ body {
 #passwordEdit1 {
     position: absolute;
     left: 1390px;
-    top: 250px;
+    top: 270px;
     z-index: 2;
 }
 
 #passwordEdit2 {
     position: absolute;
     left: 1390px;
-    top: 280px;
+    top: 300px;
     z-index: 2;
 }
 
 #updateBtn{
     position: absolute;
     left: 1600px;
-    top: 250px;
+    top: 270px;
     z-index: 2;
 }
 

@@ -11,9 +11,7 @@ class bgCanvas {
         setTimeout(() => this.listTops(Game.highScore(), "score", 90), 100)
         setTimeout(() => this.listTops(Game.highLevel(), "level", 365), 100)
         setTimeout(() => this.listTops(Game.highLines(), "lines", 625), 100)
-        setTimeout(() => this.getUserTop(26, "score", 370), 100)
-        setTimeout(() => this.getUserTop(26, "level", 540), 100)
-        setTimeout(() => this.getUserTop(26, "lines", 710), 100)
+        
 
         
         
@@ -76,6 +74,11 @@ class bgCanvas {
     
     static getUserTop(id, top, yValue){
         let array = Game.userGames(id)
+        let user = User.findUserByID(id)
+        this.bgctx.fillStyle = 'black';
+        this.bgctx.font = "60px Arial";
+        this.bgctx.fillText(`${user.name}`, 1380, 110)
+        this.bgctx.fillText(`${user.password}`, 1380, 200)
         if(top === "score"){
             array = array.sort((a, b) => b.score - a.score);
         }

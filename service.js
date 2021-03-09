@@ -41,11 +41,10 @@ class ApiService {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({user: UserObject})
+            body: JSON.stringify({user: userObj})
         })
         .then(resp => resp.json())
         .then(data => {
-            console.log(data)
             this.fetchUsers()
         })
     }
