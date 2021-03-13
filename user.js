@@ -50,6 +50,69 @@ class User {
 
     }
 
+    static editUser(){
+        let nameEdit = document.getElementById("nameEdit");
+        let passwordEdit1 = document.getElementById("passwordEdit1");
+        let passwordEdit2 = document.getElementById("passwordEdit2");
+        let updateBtn = document.getElementById("updateBtn");
+    
+
+        nameEdit.hidden = false;
+        passwordEdit1.hidden = false;
+        passwordEdit2.hidden = false;
+        updateBtn.hidden = false;
+    
+    
+        updateBtn.addEventListener('click', function(e){
+            e.preventDefault();
+            if(passwordEdit1.value == passwordEdit2.value && passwordEdit1.value != "" && nameEdit.value != ""){
+                const UserObj = {
+                    id: currentUser.id,
+                    name: nameEdit.value,
+                    password: passwordEdit1.value,
+                }
+                apiService.editUser(UserObj);
+
+            }
+            else if(passwordEdit1.value == passwordEdit2.value && passwordEdit1.value != "" && nameEdit.value == ""){
+                const UserObj = {
+                    id: currentUser.id,
+                    name: currentUser.name,
+                    password: passwordEdit1.value,
+                }
+                apiService.editUser(UserObj);
+            }
+            else if(passwordEdit1.value == "" && nameEdit.value != ""){
+                const UserObj = {
+                    id: currentUser.id,
+                    name: nameEdit.value,
+                    password: currentUser.password,
+                }
+                apiService.editUser(UserObj);
+            }
+            else if(passwordEdit1.value != passwordEdit2.value && passwordEdit1.value != ""){
+                alert("passwords must match. Please enter your password and re-enter your password in the virify password input.")
+            }
+            else{
+                alert("Nothing was entered into edit fields. Please enter a change into the edit fields and click Update again.")
+            }
+            bgCanvas.displayUserTops(currentUser.id)
+        })
+        
+    }
+
+    static deleteUser(){
+        let deleteBtn = document.getElementById("deleteBtn");
+        deleteBtn.hidden = false;
+        deleteBtn.addEventListener('click', function(e){
+            e.preventDefault()
+            apiService.deleteUser(currentUser.id)
+            User.findUserByID(currentUser.id).delete
+            e.target.reset
+        })
+    
+    }
+
 
 
     

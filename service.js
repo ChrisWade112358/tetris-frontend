@@ -46,9 +46,14 @@ class ApiService {
         })
         .then(resp => resp.json())
         .then(data => {
+            let user = User.findUserByID(data.id)
+            user.id = data.id
+            user.name = data.name
+            user.password = data.password
             currentUser.id = data.id;
             currentUser.name = data.name;
             currentUser.password = data.password;
+            alert("User Successfuly edited.")
             
 
             
@@ -60,14 +65,16 @@ class ApiService {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify({id: id})
         })
         .then(resp => resp.json())
         .then(data => {
             console.log(data);
             let deadMan = User.allUsers.indexOf(currentUser)
-            delete User.allUsers[deadman]
+            User.allUsers.splice(deadMan, 1)
             currentUser = undefined;
+            alert("User Deleted. Please refresh page.")
             
         })
     }

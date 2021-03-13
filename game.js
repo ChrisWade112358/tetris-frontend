@@ -39,14 +39,14 @@ class Game {
 
     static highLevel(){
         let highLevelArray = [].concat(Game.allGames)
-        highLevelArray = highLevelArray.sort((a, b) => b.score - a.score);
+        highLevelArray = highLevelArray.sort((a, b) => b.level - a.level);
         highLevelArray.length = 5;
         return highLevelArray;
     }
 
     static highLines(){
         let highLinesArray = [].concat(Game.allGames)
-        highLinesArray = highLinesArray.sort((a, b) => b.score - a.score);
+        highLinesArray = highLinesArray.sort((a, b) => b.lines - a.lines);
         highLinesArray.length = 5;
         return highLinesArray;
     }

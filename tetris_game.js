@@ -233,13 +233,14 @@ function Scoreboard() {
 
     let level = 0;
     let lines = 0;
+    let totalLines = 0;
     let score = 0;
     let topscore = 0;
     let gameOver = true;
 
     this.reset = function () {
         this.setTopscore();
-        level = lines = score = 0;
+        level = lines = score = totalLines = 0;
         gameOver = false;
     }
 
@@ -301,6 +302,7 @@ function Scoreboard() {
                 return;
         }
 
+        totalLines += line;
         lines += line;
         if (lines > 10) {
             this.addLevel();
@@ -320,6 +322,11 @@ function Scoreboard() {
 
     this.getLines = function () {
         return lines;
+    }
+
+
+    this.getTotalLines = function () {
+        return totalLines
     }
 
     this.getScore = function () {
@@ -345,7 +352,7 @@ function draw() {
         }
         else{
             drawStartScreen();
-            apiService.submitGame(currentUser.id, scoreboard.getScore(), scoreboard.getLines(), scoreboard.getLevel())
+            apiService.submitGame(currentUser.id, scoreboard.getScore(), scoreboard.getTotalLines(), scoreboard.getLevel())
                 .then(data =>{
                     const newGame = new Game(data)
                 }
@@ -388,79 +395,9 @@ function afterReturn(){
     passwordInput.hidden = true;
     bgCanvas.displayUserTops(currentUser.id)
     startNewGame();
-    editUser();
-    deleteUser();
+    User.editUser();
+    User.deleteUser();
 }
-
-
-
-function editUser(){
-    let nameEdit = document.getElementById("nameEdit");
-    let passwordEdit1 = document.getElementById("passwordEdit1");
-    let passwordEdit2 = document.getElementById("passwordEdit2");
-    let updateBtn = document.getElementById("updateBtn");
-    
-
-    nameEdit.hidden = false;
-    passwordEdit1.hidden = false;
-    passwordEdit2.hidden = false;
-    updateBtn.hidden = false;
-    
-
-
-    
-    updateBtn.addEventListener('click', function(e){
-        e.preventDefault();
-        if(passwordEdit1.value == passwordEdit2.value && passwordEdit1.value != "" && nameEdit.value != ""){
-            const UserObj = {
-                id: currentUser.id,
-                name: nameEdit.value,
-                password: passwordEdit1.value,
-            }
-            apiService.editUser(UserObj);
-
-        }
-        else if(passwordEdit1.value == passwordEdit2.value && passwordEdit1.value != "" && nameEdit.value == ""){
-            const UserObj = {
-                id: currentUser.id,
-                name: currentUser.name,
-                password: passwordEdit1.value,
-            }
-            apiService.editUser(UserObj);
-        }
-        else if(passwordEdit1.value == "" && nameEdit.value != ""){
-            const UserObj = {
-                id: currentUser.id,
-                name: nameEdit.value,
-                password: currentUser.password,
-            }
-            apiService.editUser(UserObj);
-        }
-        else if(passwordEdit1.value != passwordEdit2.value && passwordEdit1.value != ""){
-            alert("passwords must match. Please enter your password and re-enter your password in the virify password input.")
-        }
-        else{
-            alert("Nothing was entered into edit fields. Please enter a change into the edit fields and click Update again.")
-        }
-        bgCanvas.displayUserTops(currentUser.id)
-    })
-    
-    
-}
-
-function deleteUser(){
-    let deleteBtn = document.getElementById("deleteBtn");
-    deleteBtn.hidden = false;
-    deleteBtn.addEventListener('click', function(e){
-        e.preventDefault()
-        apiService.deleteUser(currentUser.id)
-        User.findUserByID(currentUser.id).delete
-        e.target.reset
-    })
-
-}
-
-
 
 function drawStartScreen() {
     ctx.font = mainFont;
