@@ -53,7 +53,8 @@ class ApiService {
             currentUser.id = data.id;
             currentUser.name = data.name;
             currentUser.password = data.password;
-            alert("User Successfuly edited.")
+            bgCanvas.drawBlankUserRect();
+            alert("User Successfuly edited.");
             
 
             
@@ -74,6 +75,7 @@ class ApiService {
             let deadMan = User.allUsers.indexOf(currentUser)
             User.allUsers.splice(deadMan, 1)
             currentUser = undefined;
+            bgCanvas.drawBlankUserRect();
             alert("User Deleted. Please refresh page.")
             
         })

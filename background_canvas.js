@@ -5,20 +5,6 @@ class bgCanvas {
         this.bgctx;
     }
 
-    static displayBGCanvas(){
-        this.drawBGCanvas(window.innerWidth, window.innerHeight)
-        this.addRectangles()
-        this.displayTops()
-
-        
-        
-
-        
-        
-        
-    }
-
-    
 
     static drawBGCanvas(width, height){
         this.bgCan = document.createElement('canvas');
@@ -37,6 +23,17 @@ class bgCanvas {
         
         this.bgctx.fillStyle = 'orange';
         this.bgctx.fillRect(1350, 20, 320, 835)
+    }
+
+    static drawBlankUserRect(){
+        this.bgctx.fillStyle = 'orange';
+        this.bgctx.fillRect(1350, 20, 320, 835)
+    }
+
+    static displayBGCanvas(){
+        this.drawBGCanvas(window.innerWidth, window.innerHeight)
+        this.addRectangles()
+        this.displayTops()    
     }
         
     static displayTops(){
