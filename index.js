@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', function(){
     Game.generateGames()
     const bgC = new bgCanvas()
     bgCanvas.displayBGCanvas()
-    
+    const tops = new Tops()
+    Tops.displayTops()
     
     
 })

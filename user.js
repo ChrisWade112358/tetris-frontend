@@ -96,7 +96,7 @@ class User {
             else{
                 alert("Nothing was entered into edit fields. Please enter a change into the edit fields and click Update again.")
             }
-            bgCanvas.displayUserTops(currentUser.id)
+            Tops.displayUserTops(currentUser.id)
         })
         
     }

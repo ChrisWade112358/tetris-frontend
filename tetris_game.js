@@ -357,9 +357,9 @@ function draw() {
                     const newGame = new Game(data)
                 }
             )
-            setTimeout(() => bgCanvas.listTops(Game.highScore(), "score", 90), 100)
-            setTimeout(() => bgCanvas.listTops(Game.highLevel(), "level", 365), 100)
-            setTimeout(() => bgCanvas.listTops(Game.highLines(), "lines", 625), 100)
+            setTimeout(() => Tops.listTops(Game.highScore(), "score", 90), 100)
+            setTimeout(() => Tops.listTops(Game.highLevel(), "level", 365), 100)
+            setTimeout(() => Tops.listTops(Game.highLines(), "lines", 625), 100)
             
         }
         
@@ -393,7 +393,7 @@ function afterReturn(){
     let passwordInput = document.getElementById('passwordinput');
     nameInput.hidden = true;
     passwordInput.hidden = true;
-    bgCanvas.displayUserTops(currentUser.id)
+    Tops.displayUserTops(currentUser.id)
     startNewGame();
     User.editUser();
     User.deleteUser();
